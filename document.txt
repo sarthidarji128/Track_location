@@ -1,0 +1,56 @@
+ **Here's a proper documentation of the code:**
+
+**Purpose:**
+
+- This code takes a phone number as input.
+- It extracts the phone number's approximate geographic location and service provider information.
+- It then creates an interactive map centered on the location, displaying a marker with a popup containing the location description.
+
+**Libraries Used:**
+
+- **phonenumbers:** Parses phone numbers and extracts information like location and carrier.
+- **opencage:** Provides geocoding functionality to convert location descriptions to latitude and longitude coordinates.
+- **folium:** Creates interactive maps in HTML format.
+
+**Code Structure:**
+
+1. **Import necessary libraries:**
+   - `import phonenumbers`
+   - `import opencage`
+   - `import folium`
+   - `from myphone import number` (assuming `number` is defined in a file named `myphone.py`)
+
+2. **Parse the phone number:**
+   - `pepnumber = phonenumbers.parse(number)`
+
+3. **Get location description:**
+   - `location = geocoder.description_for_number(pepnumber, "en")`
+   - `print(location)`
+
+4. **Get service provider name:**
+   - `service_provider = phonenumbers.parse(number)`
+   - `print(carrier.name_for_number(service_provider, "en"))`
+
+5. **Geocode location description to coordinates:**
+   - `key = 'YOUR_OPENCAGE_API_KEY'` (replace with your actual API key)
+   - `geocoder = OpenCageGeocode(key)`
+   - `query = str(location)`
+   - `results = geocoder.geocode(query)`
+
+6. **Extract latitude and longitude:**
+   - `lat = results[0]['geometry']['lat']`
+   - `lng = results[0]['geometry']['lng']`
+   - `print(lat, lng)`
+
+7. **Create interactive map:**
+   - `myMap = folium.Map(location=[lat, lng], zoom_start=9)`
+   - `folium.Marker([lat, lng], popup=location).add_to(myMap)`
+
+8. **Save map as HTML file:**
+   - `myMap.save("location.html")`
+
+**Additional Notes:**
+
+- Ensure you have the required libraries installed (`phonenumbers`, `opencage`, and `folium`).
+- Replace `YOUR_OPENCAGE_API_KEY` with your actual OpenCage API key.
+- The `myphone.py` file is assumed to contain a variable named `number` holding the phone number to be analyzed.
